@@ -1,18 +1,21 @@
-
+let get_data = document.getElementById("get_data")
+let main_container = document.getElementById("main_container")
+let loader_div = document.getElementById("loader_div")
 async function getData(){
+    main_container.style.display="none"
+    loader_div.style.display="flex"
     try {
         const res=await fetch("https://h2skill-task1-backend.onrender.com/getdata")
-        const result =await res.json()
-       
-        console.log(result)
-        renderData(result)
-    } catch (error) {
-        console.log(error)
+        const data =await res.json()
+        renderData(data)
+    } catch (err) {
+        console.log(err)
     }
 }
 
 
 function renderData(result){
+    loader_div.style.display="none"
     document.querySelector("table").style.display="block"
     const tbody = document.querySelector('#displayData');
     tbody.innerHTML=""
@@ -33,10 +36,9 @@ function renderData(result){
 }
 
 
-const Data=document.querySelector(".data")
 
-Data.addEventListener("click",()=>{
+get_data.addEventListener("click",()=>{
   
-getData()
+    getData()
     
 })
